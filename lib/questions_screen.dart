@@ -15,15 +15,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(context) {
     final currentQuestions = questions[0];
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(currentQuestions.text, style: const TextStyle(color: Colors.white)),
-          const SizedBox(height: 30),
-          ...currentQuestions.answers.map((item) {
-            return AnswerButton(item, () {});
-          }),
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(currentQuestions.text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 20)),
+            const SizedBox(height: 30),
+            ...currentQuestions.shuffledAnswers().map((item) {
+              return AnswerButton(item, () {});
+            }),
+          ],
+        ),
       ),
     );
   }
