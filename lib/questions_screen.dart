@@ -4,7 +4,9 @@ import 'package:flutter_quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({super.key, required this.onSelectAnswer});
+  //接收 quiz.dart传递的参数
+  final void Function(String answer) onSelectAnswer;
   @override
   State<QuestionsScreen> createState() {
     return _QuestionsScreenState();
@@ -14,7 +16,9 @@ class QuestionsScreen extends StatefulWidget {
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
-  void nextQuestion() {
+  void answerQuestion(String selectedAnswers) {
+    //在state里面使用 ，用 widget.xxxx 语法调用statefulWidget中接收的参数
+    widget.onSelectAnswer(selectedAnswers);
     setState(() {
       if (currentQuestionIndex < questions.length - 1) {
         //currentQuestionIndex = currentQuestionIndex + 1;
@@ -46,8 +50,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            ...currentQuestions.shuffledAnswers().map((item) {
-              return AnswerButton(item, nextQuestion);
+            ...currentQuestions.shuffledAnswers().map((answer) {
+              return AnswerButton(answer, () {
+                answerQuestion(answer);
+              });
             }),
           ],
         ),

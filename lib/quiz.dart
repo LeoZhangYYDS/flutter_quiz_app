@@ -11,6 +11,8 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  //创建空数组存储 选择的 answer array
+  final List<String> selectedAnswers = [];
   Widget? activeScreen;
 
   @override
@@ -21,8 +23,13 @@ class _QuizState extends State<Quiz> {
 
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionsScreen();
+      activeScreen = QuestionsScreen(onSelectAnswer: chooseAnswer); //pass
     });
+  }
+
+  //function to add answer to selectedAnswers Array
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
   }
 
   @override
