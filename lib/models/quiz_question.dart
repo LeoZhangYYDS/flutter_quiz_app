@@ -6,7 +6,7 @@ class QuizQuestion {
 //创建一个方法，把 answers list 打乱顺序
   List<String> shuffledAnswers() {
     //create list copy
-    final shuffledList = List.of(answers);
+    final shuffledList = [...answers];
     //shuffle copied list and return
     shuffledList.shuffle();
     return shuffledList;
