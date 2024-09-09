@@ -17,16 +17,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
   void answerQuestion(String selectedAnswers) {
-    //在state里面使用 ，用 widget.xxxx 语法调用statefulWidget中接收的参数
+    //在state里面使用 ，用 widget.xxxx 语法调用statefulWidget中的参数
     widget.onSelectAnswer(selectedAnswers);
     setState(() {
-      if (currentQuestionIndex < questions.length - 1) {
-        //currentQuestionIndex = currentQuestionIndex + 1;
-        //currentQuestionIndex += 1;
-        currentQuestionIndex++;
-      } else {
-        print('all done');
-      }
+      //currentQuestionIndex = currentQuestionIndex + 1;
+      //currentQuestionIndex += 1;
+      currentQuestionIndex++;
     });
   }
 
@@ -51,9 +47,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
             const SizedBox(height: 30),
             ...currentQuestions.shuffledAnswers().map((answer) {
-              return AnswerButton(answer, () {
-                answerQuestion(answer);
-              });
+              return AnswerButton(
+                answerText: answer,
+                onTap: () {
+                  answerQuestion(answer);
+                },
+              );
             }),
           ],
         ),
